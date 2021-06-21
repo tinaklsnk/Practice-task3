@@ -1,0 +1,12 @@
+D:\Studying\Практика\task3\task3\bin\Debug\task3.exe.config
+D:\Studying\Практика\task3\task3\bin\Debug\task3.exe
+D:\Studying\Практика\task3\task3\bin\Debug\task3.pdb
+D:\Studying\Практика\task3\task3\obj\Debug\task3.Form1.resources
+D:\Studying\Практика\task3\task3\obj\Debug\task3.Properties.Resources.resources
+D:\Studying\Практика\task3\task3\obj\Debug\task3.csproj.GenerateResource.cache
+D:\Studying\Практика\task3\task3\obj\Debug\task3.csproj.CoreCompileInputs.cache
+D:\Studying\Практика\task3\task3\obj\Debug\task3.exe
+D:\Studying\Практика\task3\task3\obj\Debug\task3.pdb
+D:\Studying\Практика\task3\task3\bin\Debug\PCShop.mdf
+D:\Studying\Практика\task3\task3\bin\Debug\PCShop_log.ldf
+D:\Studying\Практика\task3\task3\obj\Debug\task3.csproj.AssemblyReference.cache

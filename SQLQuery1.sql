@@ -1,0 +1,10 @@
+﻿INSERT INTO Goods (Name, Price, Type, Producer, Warranty, Path) VALUES ('FrimeCom LB060', 893, N'Корпус', 'FrimeCom', 12, N'D:\Studying\Практика\task3\Photo\83564.jpg');
+INSERT INTO Goods (Name, Price, Type, Producer, Warranty, Path) VALUES ('GOODRAM DDR4 RAM 8GB 2666MHz', 1260, N'Оперативна память', 'Goodram', 36, N'D:\Studying\Практика\task3\Photo\99734.jpg');
+INSERT INTO Goods (Name, Price, Type, Producer, Warranty, Path) VALUES ('Intel s1200 DС Pentium Gold G6400 4.0GHz', 3510, N'Процесор', 'Intel', 36, N'D:\Studying\Практика\task3\Photo\117076.jpg');
+INSERT INTO Goods (Name, Price, Type, Producer, Warranty, Path) VALUES ('Asus GTX1050 Ti CERBERUS OC 4Gb DDR5', 8621, N'Відеокарта', 'Asus', 36, N'D:\Studying\Практика\task3\Photo\96730.jpg');
+INSERT INTO Goods (Name, Price, Type, Producer, Warranty, Path) VALUES ('MSI B450M PRO-M2 MAX', 1657, N'Материнська плата', 'MSI', 36, N'D:\Studying\Практика\task3\Photo\110290.jpg');
+INSERT INTO Goods (Name, Price, Type, Producer, Warranty, Path) VALUES ('Delux ATX 450W', 452, N'Блок живлення', 'Delux',12 , N'D:\Studying\Практика\task3\Photo\77679.jpg');
+INSERT INTO Goods (Name, Price, Type, Producer, Warranty, Path) VALUES ('Samsung 250Gb 970 Evo Plus series', 1981, N'Накопичувач', 'Samsung', 60, N'D:\Studying\Практика\task3\Photo\105234.jpg');
+INSERT INTO Goods (Name, Price, Type, Producer, Warranty, Path) VALUES ('AMD AM4 Ryzen 5 2600 Box', 4619, N'Процесор', 'AMD', 36, N'D:\Studying\Практика\task3\Photo\98050.jpg');
+INSERT INTO Goods (Name, Price, Type, Producer, Warranty, Path) VALUES ('Asus Radeon RX 6700 XT 12GB GDDR6 ROG Strix OC Edition', 40525, N'Відеокарта', 'Asus', 36, N'D:\Studying\Практика\task3\Photo\121877.jpg');
+INSERT INTO Goods (Name, Price, Type, Producer, Warranty, Path) VALUES ('Western Digital IntelliPower 2TB', 2495, N'Накопичувач', 'Western Digital', 36, N'D:\Studying\Практика\task3\Photo\93151.jpg');
