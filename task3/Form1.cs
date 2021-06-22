@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.IO;
-using System.Security.Principal;
+using System.Windows.Forms;
 
 namespace task3
 {
@@ -23,18 +17,26 @@ namespace task3
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.goodsTableAdapter.Fill(this.pCShopDataSet.Goods);
-            connection = new SqlConnection(ConfigurationManager.ConnectionStrings["PCshop"].ConnectionString);
-            connection.Open();
-            DataGridViewImageColumn photoColumn = new DataGridViewImageColumn();
-            photoColumn.HeaderText = "Photo";
-            photoColumn.Name = "Photo";
-            dataGridView1.Columns.Add(photoColumn);
-            //if(connection.State==ConnectionState.Open)
-            //{
-            //    MessageBox.Show("Connected to DB");
-            //}
-            Table();
+            try
+            {
+                this.goodsTableAdapter.Fill(this.pCShopDataSet.Goods);
+                connection = new SqlConnection(ConfigurationManager.ConnectionStrings["PCshop"].ConnectionString);
+                connection.Open();
+                DataGridViewImageColumn photoColumn = new DataGridViewImageColumn();
+                photoColumn.HeaderText = "Photo";
+                photoColumn.Name = "Photo";
+                dataGridView1.Columns.Add(photoColumn);
+                if (connection.State != ConnectionState.Open)
+                {
+                    throw new Exception();
+                }
+                Table();
+            }
+            catch
+            {
+                MessageBox.Show("Помилка підключення!");
+                Environment.Exit(0);
+            }
         }
         public void Table()
         {
@@ -42,6 +44,57 @@ namespace task3
             DataSet data = new DataSet();
             adapter.Fill(data);
             dataGridView1.DataSource = data.Tables[0];
+            InsertImages();
+        }
+        public static Image resizeImage(Image imgToResize, Size size)
+        {
+            return (Image)(new Bitmap(imgToResize, size));
+        }
+        private void Insert(object sender, EventArgs e)
+        {
+            if (NameBox.Text == "" || PriceBox.Text == "" || ProducerBox.Text == "" || TypeBox.Text == "" || WarrantyBox.Text == "")
+            {
+                MessageBox.Show("Заповніть поля!");
+                goto exit;
+            }
+            try
+            {
+                int price = Convert.ToInt32(PriceBox.Text);
+                int warranty = Convert.ToInt32(WarrantyBox.Text);
+                string path = PathBox.Text;
+                if (!string.IsNullOrEmpty(path))
+                {
+                    if (!File.Exists(path))
+                    {
+                        MessageBox.Show("Файлу не знайдено!");
+                        path = null;
+                    }
+                }
+                SqlCommand command = new SqlCommand($"INSERT INTO [Goods] (Name, Price, Type, Producer, Warranty, Path) VALUES (N'{NameBox.Text}', {price}, N'{TypeBox.Text}', N'{ProducerBox.Text}', {warranty}, N'{path}')", connection);
+                command.ExecuteNonQuery();
+                dataGridView1.Refresh();
+                Table();
+            }
+            catch
+            {
+                MessageBox.Show("Дані введено невірно!");
+                goto exit;
+            }
+        exit:
+            Clear();
+        }
+        private void Clear()
+        {
+            NameBox.Clear();
+            PriceBox.Clear();
+            ProducerBox.Clear();
+            TypeBox.Clear();
+            WarrantyBox.Clear();
+            PathBox.Clear();
+            IdBox.Clear();
+        }
+        public void InsertImages()
+        {
             SqlCommand command = new SqlCommand($"SELECT MAX(ID) FROM [Goods]", connection);
             Int32 maxId = (Int32)command.ExecuteScalar();
             Int32 curId = 0;
@@ -62,76 +115,35 @@ namespace task3
             }
             //C:\Users\User\Desktop\pic\1.jpeg
         }
-        public static Image resizeImage(Image imgToResize, Size size)
-        {
-            return (Image)(new Bitmap(imgToResize, size));
-        }
-        private void Insert(object sender, EventArgs e)
-        {
-            if (NameBox.Text == "" || PriceBox.Text == "" || ProducerBox.Text == "" || TypeBox.Text == "" || WarrantyBox.Text == "")
-            {
-                MessageBox.Show("Заповніть поля!");
-                goto exit;
-            }
-            try
-            {
-                int price = Convert.ToInt32(PriceBox.Text);
-                int warranty = Convert.ToInt32(WarrantyBox.Text);
-            }
-            catch
-            {
-                MessageBox.Show("Дані введено невірно");
-                goto exit;
-            }
-            string path = PathBox.Text;
-            if (!string.IsNullOrEmpty(path))
-            {
-                if (!File.Exists(path))
-                {
-                    MessageBox.Show("Файлу не знайдено");
-                    path = null;
-                }
-            }
-            SqlCommand command = new SqlCommand($"INSERT INTO [Goods] (Name, Price, Type, Producer, Warranty, Path) VALUES (N'{NameBox.Text}', {PriceBox.Text}, N'{TypeBox.Text}', N'{ProducerBox.Text}', {WarrantyBox.Text}, N'{path}')", connection);
-            command.ExecuteNonQuery();
-            Table();
-            dataGridView1.Refresh();
-        exit:
-            Clear();
-        }
-        private void Clear()
-        {
-            NameBox.Clear();
-            PriceBox.Clear();
-            ProducerBox.Clear();
-            TypeBox.Clear();
-            WarrantyBox.Clear();
-            PathBox.Clear();
-            IdBox.Clear();
-        }
-        public void InsertImages(string path)
-        {
-            {
-                DataGridViewImageCell cell = (DataGridViewImageCell)dataGridView1.Rows[dataGridView1.RowCount - 1].Cells[dataGridView1.ColumnCount - 1];
-                Image image = Image.FromFile($@"{path}");
-                image = resizeImage(image, new Size(50, 50));
-                cell.Value = image;
-            }
-        }
         private void Remove(object sender, EventArgs e)
         {
             try
             {
                 int id = Convert.ToInt32(IdBox.Text);
-                SqlCommand command = new SqlCommand($"DELETE FROM Goods WHERE id={id}; ", connection);
+                SqlCommand command = new SqlCommand($"DELETE FROM Goods WHERE Id={id}; ", connection);
                 command.ExecuteNonQuery();
                 Table();
+                Clear();
             }
             catch
             {
                 MessageBox.Show("Дані введено невірно");
                 Clear();
             }
+        }
+        private void SearchBox_TextChanged(object sender, EventArgs e)
+        {
+            int id;
+            try
+            {
+                id = Convert.ToInt32(SearchBox.Text);
+            }
+            catch
+            {
+                id = 0;
+            }
+            (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = $"Name LIKE '%{SearchBox.Text}%' or Id={id}";
+            InsertImages();
         }
     }
 }

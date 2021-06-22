@@ -52,6 +52,9 @@ namespace task3
             this.label7 = new System.Windows.Forms.Label();
             this.IdBox = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.SearchBox = new System.Windows.Forms.TextBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -66,6 +69,7 @@ namespace task3
             ((System.ComponentModel.ISupportInitialize)(this.pCShopDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.goodsBindingSource)).BeginInit();
             this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.goodsBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.goodsBindingSource3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.goodsBindingSource1)).BeginInit();
@@ -74,6 +78,9 @@ namespace task3
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeColumns = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
@@ -86,11 +93,13 @@ namespace task3
             this.producerDataGridViewTextBoxColumn,
             this.warrantyDataGridViewTextBoxColumn});
             this.dataGridView1.DataSource = this.goodsBindingSource2;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Right;
             this.dataGridView1.Location = new System.Drawing.Point(324, 0);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1034, 743);
+            this.dataGridView1.Size = new System.Drawing.Size(1085, 740);
             this.dataGridView1.TabIndex = 0;
             // 
             // NameBox
@@ -109,21 +118,21 @@ namespace task3
             // 
             // ProducerBox
             // 
-            this.ProducerBox.Location = new System.Drawing.Point(11, 140);
+            this.ProducerBox.Location = new System.Drawing.Point(157, 86);
             this.ProducerBox.Name = "ProducerBox";
             this.ProducerBox.Size = new System.Drawing.Size(137, 22);
             this.ProducerBox.TabIndex = 4;
             // 
             // TypeBox
             // 
-            this.TypeBox.Location = new System.Drawing.Point(12, 198);
+            this.TypeBox.Location = new System.Drawing.Point(11, 145);
             this.TypeBox.Name = "TypeBox";
             this.TypeBox.Size = new System.Drawing.Size(183, 22);
             this.TypeBox.TabIndex = 5;
             // 
             // WarrantyBox
             // 
-            this.WarrantyBox.Location = new System.Drawing.Point(12, 255);
+            this.WarrantyBox.Location = new System.Drawing.Point(223, 145);
             this.WarrantyBox.Name = "WarrantyBox";
             this.WarrantyBox.Size = new System.Drawing.Size(71, 22);
             this.WarrantyBox.TabIndex = 6;
@@ -149,7 +158,7 @@ namespace task3
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 120);
+            this.label4.Location = new System.Drawing.Point(222, 66);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(72, 17);
             this.label4.TabIndex = 10;
@@ -158,7 +167,7 @@ namespace task3
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 178);
+            this.label5.Location = new System.Drawing.Point(12, 125);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(72, 17);
             this.label5.TabIndex = 11;
@@ -167,7 +176,7 @@ namespace task3
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 235);
+            this.label6.Location = new System.Drawing.Point(228, 125);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(66, 17);
             this.label6.TabIndex = 12;
@@ -175,7 +184,7 @@ namespace task3
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(71, 357);
+            this.button1.Location = new System.Drawing.Point(71, 240);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(160, 59);
             this.button1.TabIndex = 13;
@@ -185,6 +194,7 @@ namespace task3
             // 
             // panel1
             // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.PathBox);
             this.panel1.Controls.Add(this.button1);
@@ -200,13 +210,13 @@ namespace task3
             this.panel1.Controls.Add(this.WarrantyBox);
             this.panel1.Location = new System.Drawing.Point(1, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(317, 433);
+            this.panel1.Size = new System.Drawing.Size(317, 322);
             this.panel1.TabIndex = 14;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 294);
+            this.label1.Location = new System.Drawing.Point(12, 181);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(41, 17);
             this.label1.TabIndex = 16;
@@ -214,7 +224,7 @@ namespace task3
             // 
             // PathBox
             // 
-            this.PathBox.Location = new System.Drawing.Point(12, 314);
+            this.PathBox.Location = new System.Drawing.Point(11, 201);
             this.PathBox.Name = "PathBox";
             this.PathBox.Size = new System.Drawing.Size(282, 22);
             this.PathBox.TabIndex = 15;
@@ -235,12 +245,13 @@ namespace task3
             // 
             // panel2
             // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.button2);
             this.panel2.Controls.Add(this.IdBox);
             this.panel2.Controls.Add(this.label7);
-            this.panel2.Location = new System.Drawing.Point(1, 439);
+            this.panel2.Location = new System.Drawing.Point(1, 328);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(317, 162);
+            this.panel2.Size = new System.Drawing.Size(317, 152);
             this.panel2.TabIndex = 15;
             // 
             // label7
@@ -261,7 +272,7 @@ namespace task3
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(71, 87);
+            this.button2.Location = new System.Drawing.Point(71, 78);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(158, 59);
             this.button2.TabIndex = 16;
@@ -269,12 +280,40 @@ namespace task3
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.Remove);
             // 
+            // SearchBox
+            // 
+            this.SearchBox.Location = new System.Drawing.Point(12, 44);
+            this.SearchBox.Name = "SearchBox";
+            this.SearchBox.Size = new System.Drawing.Size(283, 22);
+            this.SearchBox.TabIndex = 16;
+            this.SearchBox.TextChanged += new System.EventHandler(this.SearchBox_TextChanged);
+            // 
+            // panel3
+            // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.label8);
+            this.panel3.Controls.Add(this.SearchBox);
+            this.panel3.Location = new System.Drawing.Point(1, 486);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(317, 101);
+            this.panel3.TabIndex = 17;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(15, 13);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(134, 17);
+            this.label8.TabIndex = 17;
+            this.label8.Text = "Пошук (код, назва)";
+            // 
             // idDataGridViewTextBoxColumn
             // 
             this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
             this.idDataGridViewTextBoxColumn.HeaderText = "Id";
             this.idDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
             this.idDataGridViewTextBoxColumn.Width = 48;
             // 
             // nameDataGridViewTextBoxColumn
@@ -283,6 +322,7 @@ namespace task3
             this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
             this.nameDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
             this.nameDataGridViewTextBoxColumn.Width = 74;
             // 
             // priceDataGridViewTextBoxColumn
@@ -291,6 +331,7 @@ namespace task3
             this.priceDataGridViewTextBoxColumn.HeaderText = "Price";
             this.priceDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
+            this.priceDataGridViewTextBoxColumn.ReadOnly = true;
             this.priceDataGridViewTextBoxColumn.Width = 69;
             // 
             // typeDataGridViewTextBoxColumn
@@ -299,6 +340,7 @@ namespace task3
             this.typeDataGridViewTextBoxColumn.HeaderText = "Type";
             this.typeDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
+            this.typeDataGridViewTextBoxColumn.ReadOnly = true;
             this.typeDataGridViewTextBoxColumn.Width = 69;
             // 
             // producerDataGridViewTextBoxColumn
@@ -307,6 +349,7 @@ namespace task3
             this.producerDataGridViewTextBoxColumn.HeaderText = "Producer";
             this.producerDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.producerDataGridViewTextBoxColumn.Name = "producerDataGridViewTextBoxColumn";
+            this.producerDataGridViewTextBoxColumn.ReadOnly = true;
             this.producerDataGridViewTextBoxColumn.Width = 95;
             // 
             // warrantyDataGridViewTextBoxColumn
@@ -315,6 +358,7 @@ namespace task3
             this.warrantyDataGridViewTextBoxColumn.HeaderText = "Warranty";
             this.warrantyDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.warrantyDataGridViewTextBoxColumn.Name = "warrantyDataGridViewTextBoxColumn";
+            this.warrantyDataGridViewTextBoxColumn.ReadOnly = true;
             this.warrantyDataGridViewTextBoxColumn.Width = 95;
             // 
             // goodsBindingSource2
@@ -333,7 +377,8 @@ namespace task3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1370, 740);
+            this.ClientSize = new System.Drawing.Size(1409, 740);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);
@@ -347,6 +392,8 @@ namespace task3
             ((System.ComponentModel.ISupportInitialize)(this.goodsBindingSource)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.goodsBindingSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.goodsBindingSource3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.goodsBindingSource1)).EndInit();
@@ -387,6 +434,9 @@ namespace task3
         private System.Windows.Forms.DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn producerDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn warrantyDataGridViewTextBoxColumn;
+        private System.Windows.Forms.TextBox SearchBox;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Label label8;
     }
 }
 
