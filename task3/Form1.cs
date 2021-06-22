@@ -10,16 +10,6 @@ using System.Windows.Forms;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Security.Principal;
 
 namespace task3
@@ -30,7 +20,6 @@ namespace task3
         public Form1()
         {
             InitializeComponent();
-
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -47,7 +36,6 @@ namespace task3
             //}
             Table();
         }
-
         public void Table()
         {
             SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM Goods;", connection);
@@ -72,27 +60,7 @@ namespace task3
                 }
                 curId++;
             }
-
-            //InsertImages(path);
-            //command.\\
-            //string[] path = { @"D:\Studying\Практика\task3\Photo\83564.jpg",
-            //@"D:\Studying\Практика\task3\Photo\99734.jpg",
-            //@"D:\Studying\Практика\task3\Photo\117076.jpg",
-            //@"D:\Studying\Практика\task3\Photo\96730.jpg",
-            //@"D:\Studying\Практика\task3\Photo\110290.jpg",
-            //@"D:\Studying\Практика\task3\Photo\77679.jpg",
-            //@"D:\Studying\Практика\task3\Photo\105234.jpg",
-            //@"D:\Studying\Практика\task3\Photo\98050.jpg",
-            //@"D:\Studying\Практика\task3\Photo\121877.jpg",
-            //@"D:\Studying\Практика\task3\Photo\93151.jpg"};
-            //for (int i = 0; i < path.Length; i++)
-            //{
-            //    DataGridViewImageCell cell = (DataGridViewImageCell)dataGridView1.Rows[i].Cells[dataGridView1.ColumnCount - 1];
-            //    Image image = Image.FromFile($"{path[i]}");
-            //    image = resizeImage(image, new Size(50, 50));
-            //    cell.Value = image;
-            //}
-
+            //C:\Users\User\Desktop\pic\1.jpeg
         }
         public static Image resizeImage(Image imgToResize, Size size)
         {
@@ -105,14 +73,28 @@ namespace task3
                 MessageBox.Show("Заповніть поля!");
                 goto exit;
             }
+            try
+            {
+                int price = Convert.ToInt32(PriceBox.Text);
+                int warranty = Convert.ToInt32(WarrantyBox.Text);
+            }
+            catch
+            {
+                MessageBox.Show("Дані введено невірно");
+                goto exit;
+            }
             string path = PathBox.Text;
-            if (PathBox.Text == "")
-                path = null;
-            else path = PathBox.Text;
-            SqlCommand command = new SqlCommand($"INSERT INTO [Goods] (Name, Price, Type, Producer, Warranty, Path) VALUES ('{NameBox.Text}', {PriceBox.Text}, N'{TypeBox.Text}', '{ProducerBox.Text}', {WarrantyBox.Text}, '{path}')", connection);
-            dataGridView1.Refresh();
-            InsertImages(path);
+            if (!string.IsNullOrEmpty(path))
+            {
+                if (!File.Exists(path))
+                {
+                    MessageBox.Show("Файлу не знайдено");
+                    path = null;
+                }
+            }
+            SqlCommand command = new SqlCommand($"INSERT INTO [Goods] (Name, Price, Type, Producer, Warranty, Path) VALUES (N'{NameBox.Text}', {PriceBox.Text}, N'{TypeBox.Text}', N'{ProducerBox.Text}', {WarrantyBox.Text}, N'{path}')", connection);
             command.ExecuteNonQuery();
+            Table();
             dataGridView1.Refresh();
         exit:
             Clear();
@@ -125,6 +107,7 @@ namespace task3
             TypeBox.Clear();
             WarrantyBox.Clear();
             PathBox.Clear();
+            IdBox.Clear();
         }
         public void InsertImages(string path)
         {
@@ -135,7 +118,20 @@ namespace task3
                 cell.Value = image;
             }
         }
+        private void Remove(object sender, EventArgs e)
+        {
+            try
+            {
+                int id = Convert.ToInt32(IdBox.Text);
+                SqlCommand command = new SqlCommand($"DELETE FROM Goods WHERE id={id}; ", connection);
+                command.ExecuteNonQuery();
+                Table();
+            }
+            catch
+            {
+                MessageBox.Show("Дані введено невірно");
+                Clear();
+            }
+        }
     }
-
-
 }
