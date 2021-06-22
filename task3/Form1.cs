@@ -44,7 +44,25 @@ namespace task3
             DataSet data = new DataSet();
             adapter.Fill(data);
             dataGridView1.DataSource = data.Tables[0];
-            InsertImages();
+            SqlCommand command = new SqlCommand($"SELECT MAX(ID) FROM [Goods]", connection);
+            Int32 maxId = (Int32)command.ExecuteScalar();
+            Int32 curId = 0;
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                command = new SqlCommand($"SELECT ID FROM [Goods] where id>={curId}", connection);
+                curId = (Int32)command.ExecuteScalar();
+                command = new SqlCommand($"SELECT path FROM [Goods] WHERE id={curId};", connection);
+                string path = (string)command.ExecuteScalar();
+                DataGridViewImageCell cell = (DataGridViewImageCell)dataGridView1.Rows[i].Cells[dataGridView1.ColumnCount - 1];
+                if (File.Exists(path))
+                {
+                    Image image = Image.FromFile($@"{path}");
+                    image = resizeImage(image, new Size(50, 50));
+                    cell.Value = image;
+                }
+                curId++;
+            }
+            //C:\Users\User\Desktop\pic\1.jpeg
         }
         public static Image resizeImage(Image imgToResize, Size size)
         {
@@ -93,28 +111,6 @@ namespace task3
             PathBox.Clear();
             IdBox.Clear();
         }
-        public void InsertImages()
-        {
-            SqlCommand command = new SqlCommand($"SELECT MAX(ID) FROM [Goods]", connection);
-            Int32 maxId = (Int32)command.ExecuteScalar();
-            Int32 curId = 0;
-            for (int i = 0; i < dataGridView1.RowCount; i++)
-            {
-                command = new SqlCommand($"SELECT ID FROM [Goods] where id>={curId}", connection);
-                curId = (Int32)command.ExecuteScalar();
-                command = new SqlCommand($"SELECT path FROM [Goods] WHERE id={curId};", connection);
-                string path = (string)command.ExecuteScalar();
-                DataGridViewImageCell cell = (DataGridViewImageCell)dataGridView1.Rows[i].Cells[dataGridView1.ColumnCount - 1];
-                if (File.Exists(path))
-                {
-                    Image image = Image.FromFile($@"{path}");
-                    image = resizeImage(image, new Size(50, 50));
-                    cell.Value = image;
-                }
-                curId++;
-            }
-            //C:\Users\User\Desktop\pic\1.jpeg
-        }
         private void Remove(object sender, EventArgs e)
         {
             try
@@ -143,7 +139,24 @@ namespace task3
                 id = 0;
             }
             (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = $"Name LIKE '%{SearchBox.Text}%' or Id={id}";
-            InsertImages();
+            SqlCommand command = new SqlCommand($"SELECT MAX(ID) FROM [Goods]", connection);
+            Int32 maxId = (Int32)command.ExecuteScalar();
+            Int32 curId = 0;
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                command = new SqlCommand($"SELECT ID FROM [Goods] where id>={curId} AND (Name LIKE '%{SearchBox.Text}%' or Id={id})", connection);
+                curId = (Int32)command.ExecuteScalar();
+                command = new SqlCommand($"SELECT path FROM [Goods] WHERE id={curId};", connection);
+                string path = (string)command.ExecuteScalar();
+                DataGridViewImageCell cell = (DataGridViewImageCell)dataGridView1.Rows[i].Cells[dataGridView1.ColumnCount - 1];
+                if (File.Exists(path))
+                {
+                    Image image = Image.FromFile($@"{path}");
+                    image = resizeImage(image, new Size(50, 50));
+                    cell.Value = image;
+                }
+                curId++;
+            }
         }
     }
 }

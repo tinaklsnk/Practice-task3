@@ -9,3 +9,4 @@ D:\Studying\Практика\task3\task3\obj\Debug\task3.exe
 D:\Studying\Практика\task3\task3\obj\Debug\task3.pdb
 D:\Studying\Практика\task3\task3\bin\Debug\PCShop.mdf
 D:\Studying\Практика\task3\task3\bin\Debug\PCShop_log.ldf
+D:\Studying\Практика\task3\task3\obj\Debug\task3.csproj.AssemblyReference.cache
